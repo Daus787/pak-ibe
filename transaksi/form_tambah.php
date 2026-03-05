@@ -33,7 +33,7 @@ $pelanggan = mysqli_query($koneksi, "SELECT pelangganID, namapelanggan FROM pela
       </select>
     </p>
     <p>
-      <button type="submit">Simpan</button>
+      <button type="submit" name="simpan">Simpan</button>
       <a href="index_trans.php">Batal</a>
     </p>
   </form>
