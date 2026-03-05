@@ -1,5 +1,7 @@
 <?php
-include "../koneksi.php";
+include "../config/koneksi.php";
+
+$pelanggan = mysqli_query($koneksi, "SELECT pelangganID, namapelanggan FROM pelanggan");
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +16,7 @@ include "../koneksi.php";
 <body>
   <h2>tambah transaksi</h2>
 
-  <form action="tambah.php">
+  <form action="tambah.php" method="POST">
     <p>
       <label>tanggal transaksi</label>
       <input type="date" name="tanggal" required>
@@ -22,8 +24,12 @@ include "../koneksi.php";
     <p>
       <label for="">Pelanggan</label>
       <select name="pelangganID" id="pelangganID" required>
-        <option value="">Pilih Pelanggan</option>
-        <!-- Options will be populated by PHP -->
+        <option value="">-- Pilih Pelanggan --</option>
+        <?php while ($p = mysqli_fetch_assoc($pelanggan)): ?>
+          <option value="<?php echo $p['pelangganID']; ?>">
+            <?php echo $p['namapelanggan']; ?>
+          </option>
+        <?php endwhile; ?>
       </select>
     </p>
     <p>
