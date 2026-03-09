@@ -2,11 +2,11 @@
 include '../config/koneksi.php';
 
 // Cek apakah ID transaksi dikirim
-if (!isset($_GET['id'])) {
+if (!isset($_GET['penjualanID'])) {
   die("Akses dilarang...");
 }
 
-$id = $_GET['id'];
+$id = $_GET['penjualanID'];
 
 // Ambil data transaksi (header)
 $query_transaksi = mysqli_query($koneksi, "
@@ -23,9 +23,9 @@ $transaksi = mysqli_fetch_assoc($query_transaksi);
 
 // Ambil detail transaksi (produk)
 $query_detail = mysqli_query($koneksi, "
-    SELECT detailpenjualan.*, produk.NamaProduk, produk.Harga
+    SELECT detailpenjualan.*, produk.nama_produk, produk.harga
     FROM detailpenjualan
-    JOIN produk ON detailpenjualan.ProdukID = produk.ProdukID
+    JOIN produk ON detailpenjualan.ProdukID = produk.id_produk
     WHERE detailpenjualan.PenjualanID = '$id'
 ");
 ?>
@@ -60,7 +60,7 @@ $query_detail = mysqli_query($koneksi, "
   <a href="form_tambah_detail.php?id=<?= $id; ?>">+ Tambah Produk</a>
   <br><br>
 
-  // Detail produk
+  <!-- Detail produk -->
   <table border="1" cellpadding="10" cellspacing="0">
     <tr>
       <th>No</th>
