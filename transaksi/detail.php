@@ -92,10 +92,11 @@ $query_detail = mysqli_query($koneksi, "
       </tr>
     <?php } ?>
 
-    
+    <tr>
+      <th colspan="4">Total</th>
+      <th colspan="2">Rp <?= number_format($total, 0, ',', '.'); ?></th>
+    </tr>
   </table>
-
-  <h3>Total Harga: Rp <?= number_format($total, 0, ',', '.'); ?></h3>
-
+  <br>
   <a href="index_trans.php">Kembali ke Daftar Transaksi</a>
 </body>
