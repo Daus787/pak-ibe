@@ -87,7 +87,7 @@ if (!$query) {
         <td><?= date('d-m-Y', strtotime($data['tanggalpenjualan'])) ?></td>
         <td>Rp <?= number_format((float)$data['totalharga'], 0, ',', '.') ?></td>
         <td>
-          <a href="form_edit.php?penjualanID=<?= urlencode($data['penjualanID']) ?>">detail</a> |
+          <a href="detail.php?penjualanID=<?= urlencode($data['penjualanID']) ?>">detail</a> |
           <a href="hapus.php?penjualanID=<?= urlencode($data['penjualanID']) ?>&nama=<?= urlencode($data['namapelanggan']) ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus transaksi ini?')">Hapus</a>
         </td>
       </tr>

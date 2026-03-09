@@ -1,0 +1,97 @@
+<?php
+include '../config/koneksi.php';
+
+// Cek apakah ID transaksi dikirim
+if (!isset($_GET['id'])) {
+  die("Akses dilarang...");
+}
+
+$id = $_GET['id'];
+
+// Ambil data transaksi (header)
+$query_transaksi = mysqli_query($koneksi, "
+    SELECT 
+        p.PenjualanID,
+        p.TanggalPenjualan,
+        p.TotalHarga,
+        pl.NamaPelanggan
+    FROM Penjualan p
+    JOIN Pelanggan pl ON p.PelangganID = pl.PelangganID
+    WHERE p.PenjualanID = '$id'
+");
+$transaksi = mysqli_fetch_assoc($query_transaksi);
+
+// Ambil detail transaksi (produk)
+$query_detail = mysqli_query($koneksi, "
+    SELECT detailpenjualan.*, produk.NamaProduk, produk.Harga
+    FROM detailpenjualan
+    JOIN produk ON detailpenjualan.ProdukID = produk.ProdukID
+    WHERE detailpenjualan.PenjualanID = '$id'
+");
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Detail Transaksi</title>
+</head>
+
+<body>
+  <h2>Detail Transaksi</h2>
+  <table border="0" cellpadding="5">
+    <tr>
+      <td>ID Transaksi</td>
+      <td>: <?= $transaksi['PenjualanID']; ?></td>
+    </tr>
+    <tr>
+      <td>Tanggal</td>
+      <td>: <?= date('d-m-Y', strtotime($transaksi['TanggalPenjualan'])); ?></td>
+    </tr>
+
+    <tr>
+      <td>Nama Pelanggan</td>
+      <td>: <?= $transaksi['NamaPelanggan']; ?></td>
+    </tr>
+  </table>
+
+  <br>
+
+  <a href="form_tambah_detail.php?id=<?= $id; ?>">+ Tambah Produk</a>
+  <br><br>
+
+  // Detail produk
+  <table border="1" cellpadding="10" cellspacing="0">
+    <tr>
+      <th>No</th>
+      <th>Nama Produk</th>
+      <th>Harga</th>
+      <th>Jumlah</th>
+      <th>Subtotal</th>
+      <th>Aksi</th>
+    </tr>
+
+    <?php
+    $no = 1;
+    $total = 0;
+
+    while ($data = mysqli_fetch_assoc($query_detail)) {
+      $total += $data['subTotal'];
+    ?>
+      <tr>
+        <td><?= $no++; ?></td>
+        <td><?= $data['namaProduk']; ?></td>
+        <td><?= $data['harga']; ?></td>
+        <td><?= $data['jumlahProduk']; ?></td>
+        <td><?= $data['subTotal']; ?></td>
+        <td></td>
+        <a href="form_edit_detail.php?id=<?= $data['detailID']; ?>">Edit</a> |
+        <a href="hapus_detail.php?id=<?= $data['detailID']; ?>&penjualanID=<?= $id; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini dari transaksi?')">Hapus</a>
+      </tr>
+    <?php } ?>
+  </table>
+
+  <h3>Total Harga: Rp <?= number_format($total, 0, ',', '.'); ?></h3>
+
+  <a href="index_trans.php">Kembali ke Daftar Transaksi</a>
+</body>
