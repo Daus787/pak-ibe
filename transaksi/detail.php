@@ -84,11 +84,15 @@ $query_detail = mysqli_query($koneksi, "
         <td><?= $data['harga']; ?></td>
         <td><?= $data['jumlahProduk']; ?></td>
         <td><?= $data['subTotal']; ?></td>
-        <td></td>
-        <a href="form_edit_detail.php?id=<?= $data['detailID']; ?>">Edit</a> |
-        <a href="hapus_detail.php?id=<?= $data['detailID']; ?>&penjualanID=<?= $id; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini dari transaksi?')">Hapus</a>
+        <td>
+          <a href="hapus_detail.php?id=<?= $data['detailID']; ?>&penjualanID=<?= $id; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini dari transaksi?')">
+            Hapus
+          </a>
+        </td>
       </tr>
     <?php } ?>
+
+    
   </table>
 
   <h3>Total Harga: Rp <?= number_format($total, 0, ',', '.'); ?></h3>
