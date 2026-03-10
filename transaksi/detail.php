@@ -76,14 +76,15 @@ $query_detail = mysqli_query($koneksi, "
     $total = 0;
 
     while ($data = mysqli_fetch_assoc($query_detail)) {
-      $total += $data['Subtotal'];
+      $subtotal = $data['harga'] * $data['JumlahProduk'];
+      $total += $subtotal;
     ?>
       <tr>
         <td><?= $no++; ?></td>
         <td><?= $data['nama_produk']; ?></td>
-        <td><?= $data['harga']; ?></td>
+        <td>Rp <?= number_format($data['harga'], 0, ',', '.'); ?></td>
         <td><?= $data['JumlahProduk']; ?></td>
-        <td><?= $data['Subtotal']; ?></td>
+        <td>Rp <?= number_format($subtotal, 0, ',', '.'); ?></td>
         <td>
           <a href="hapus_detail.php?id=<?= $data['DetailID']; ?>&penjualanID=<?= $id; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini dari transaksi?')">
             Hapus
