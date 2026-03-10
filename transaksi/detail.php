@@ -39,6 +39,25 @@ $query_detail = mysqli_query($koneksi, "
 
 <body>
   <h2>Detail Transaksi</h2>
+
+  <?php if (isset($_GET['success'])): ?>
+    <p style="color: green;">
+      <?php if ($_GET['success'] == 'tambah_detail'): ?>
+        Produk berhasil ditambahkan ke transaksi!
+      <?php elseif ($_GET['success'] == 'hapus_detail'): ?>
+        Produk berhasil dihapus dari transaksi!
+      <?php endif; ?>
+    </p>
+  <?php endif; ?>
+
+  <?php if (isset($_GET['error'])): ?>
+    <p style="color: red;">
+      <?php if ($_GET['error'] == 'detail_tidak_ditemukan'): ?>
+        Detail tidak ditemukan!
+      <?php endif; ?>
+    </p>
+  <?php endif; ?>
+
   <table border="0" cellpadding="5">
     <tr>
       <td>ID Transaksi</td>

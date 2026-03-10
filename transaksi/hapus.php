@@ -9,6 +9,16 @@ if (isset($_GET['penjualanID'])) {
   $penjualanID = $_GET['penjualanID'];
   $nama = $_GET['nama'] ?? '';
 
+  // Kembalikan stok produk dari detail transaksi
+  $query_detail = mysqli_query($koneksi, "
+    SELECT ProdukID, JumlahProduk FROM detailpenjualan WHERE penjualanID = '$penjualanID'
+  ");
+  while ($detail = mysqli_fetch_assoc($query_detail)) {
+    mysqli_query($koneksi, "
+      UPDATE produk SET stok = stok + {$detail['JumlahProduk']} WHERE id_produk = '{$detail['ProdukID']}'
+    ");
+  }
+
   // 4. Query hapus data transaksi
   $query = mysqli_query(
     $koneksi,
