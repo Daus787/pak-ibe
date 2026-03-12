@@ -22,7 +22,7 @@ try {
 
   // insert ke detailpenjualan
   $insertDetail = mysqli_query($koneksi, "
-    INSERT INTO detailpenjualan (PenjualanID, ProdukID, Jumlah, Subtotal)
+    INSERT INTO detailpenjualan (penjualanID, ProdukID, JumlahProduk, Subtotal)
     VALUES ('$penjualanID', '$produkID', '$jumlah', '$subtotal')  
   ");
 
@@ -32,7 +32,7 @@ try {
 
   // jika semua berhasil, eksekusi ke database
   mysqli_commit($koneksi);
-  header("location: detail.php?id=$penjualanID&success=tambah_detail");
+  header("location: detail.php?penjualanID=$penjualanID&success=tambah_detail");
 } catch (Exception $e) {
 
   // membatalkan semua query yang sudah dijalankan
