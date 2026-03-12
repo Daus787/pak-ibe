@@ -101,9 +101,9 @@ $query_detail = mysqli_query($koneksi, "
       <tr>
         <td><?= $no++; ?></td>
         <td><?= $data['nama_produk']; ?></td>
-        <td>Rp <?= number_format($data['harga'], 0, ',', '.'); ?></td>
+        <td>Rp. <?= number_format($data['harga'], 0, ',', '.'); ?></td>
         <td><?= $data['JumlahProduk']; ?></td>
-        <td>Rp <?= number_format($subtotal, 0, ',', '.'); ?></td>
+        <td>Rp. <?= number_format($subtotal, 0, ',', '.'); ?></td>
         <td>
           <a href="hapus_detail.php?id=<?= $data['DetailID']; ?>&penjualanID=<?= $id; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini dari transaksi?')">
             Hapus
@@ -114,7 +114,7 @@ $query_detail = mysqli_query($koneksi, "
 
     <tr>
       <th colspan="4">Total</th>
-      <th colspan="2">Rp <?= number_format($total, 0, ',', '.'); ?></th>
+      <th colspan="2">Rp. <?= number_format($total, 0, ',', '.'); ?></th>
     </tr>
   </table>
   <br>
