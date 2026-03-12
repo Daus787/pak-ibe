@@ -34,7 +34,10 @@ try {
   mysqli_commit($koneksi);
   header("location: detail.php?id=$penjualanID&success=tambah_detail");
 } catch (Exception $e) {
+
+  // membatalkan semua query yang sudah dijalankan
   mysqli_rollback($koneksi);
 
+  // menampilkan pesan error
   echo $e->getMessage();
 }
