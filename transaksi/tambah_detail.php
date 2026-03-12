@@ -9,7 +9,7 @@ mysqli_begin_transaction($koneksi);
 
 try {
 
-  // cek harga + stok produk
+  // cek stok produk
   $qProduk = mysqli_query($koneksi, "SELECT harga, stok FROM produk WHERE id_produk = '$produkID'");
   $produk = mysqli_fetch_assoc($qProduk);
 

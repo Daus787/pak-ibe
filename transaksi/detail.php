@@ -74,6 +74,10 @@ $query_detail = mysqli_query($koneksi, "
     </tr>
   </table>
 
+  <a href="nota.php?penjualanID=<?= $id; ?>" target="_blank">
+    <button>Cetak Nota</button>
+  </a>
+
   <br>
 
   <a href="form_tambah_detail.php?id=<?= $id; ?>">+ Tambah Produk</a>
